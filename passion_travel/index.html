@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>passion_travel</title>
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1566868943.css" rel="stylesheet" type="text/css">
+    <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1566868943.css" rel="stylesheet" type="text/css">
+    <link href="http://css.mafengwo.net/css/cv/css+mfw-index.2015:css+jquery-ui-1.9.1.custom.min:css+hotel+datepicker-range^ZFM^1563871867.css" rel="stylesheet" type="text/css">
+    <link href="http://css.mafengwo.net/css/mfw-footer.css?1558532347" rel="stylesheet" type="text/css">
+    <link href="http://css.mafengwo.net/css/mfw-toolbar.css?1537192876" rel="stylesheet" type="text/css">
+    </head>
+  <body>
+    <div id="app"></div>
+    <!-- 首页 -->
+        <!-- 新自由行菜单 end -->
+      <script>
+          //判断是否显示 下拉bar
+          ;(function () {
+              window.showBarFlag = true;
+              var realPathName = location.pathname,$nav = $('#Js_middleNav');
+              var regExp = /localdeals|sales|insurance|activity/gi;
+              var pathArr = realPathName.match(regExp);
+
+              var firstSalesType = 0;
+              if ([1, 3, 34, 50, 51, 52].indexOf(window.Env.salesType) > -1) {
+                  firstSalesType = 3
+              } else if ([4, 40, 41, 42, 43, 44].indexOf(window.Env.salesType) > -1) {
+                  firstSalesType = 4
+              //  } else if ([11, 90, 91, 92, 93, 94, 95, 96].indexOf(window.Env.salesType) > -1) {
+              //    firstSalesType = 11
+              } else if ([6, 30, 32, 33, 35, 36].indexOf(window.Env.salesType) > -1) {
+                  firstSalesType = 6
+              } else if ([5].indexOf(window.Env.salesType) > -1) {
+                  firstSalesType = 5
+              } else if ([21, 22, 70].indexOf(window.Env.salesType) > -1) {
+                  firstSalesType = 21
+              } else if ([28, 29, 31, 99].indexOf(window.Env.salesType) > -1) {
+                  firstSalesType = 1
+              } else {
+                  firstSalesType = 2
+              }
+              // } else if ([2, 9, 12, 13, 15, 17, 20, 21, 22, 23, 24, 25, 26, 46, 47, 48, 49, 60, 61, 62, 64, 65, 66, 67, 68, 70, 71, 72, 74, 75, 76, 77, 78, 79])
+                  var urlSalesType = realPathName.split('-')[3];
+                  if(window.Env.middleNavHide) { $('.dropdown-bar').hide();return;}
+                  if(urlSalesType == 5 || firstSalesType ==5){
+                      $nav.children('[data-type="cruise"]').addClass('on');
+                      window.showBarFlag = false;
+                      $('.dropdown-bar').show();
+                  }else if(urlSalesType == 21 || firstSalesType ==21){
+                      $nav.children('[data-type="wifi"]').addClass('on');
+                      window.showBarFlag = false;
+                      $('.dropdown-bar').show();
+                  }else if(urlSalesType == 4 || window.Env.sales_title_tag == 'visa' || firstSalesType == 4){
+                      $nav.children('[data-type="visa"]').addClass('on');
+                      window.showBarFlag = false;
+                      $('.dropdown-bar').show();
+                  }else if(window.Env.sales_title_tag == 'semi_self_service' || realPathName == '/sales/0-0-0-6-0-0-0-0.html?group=4' || firstSalesType == 6){
+                      $nav.children('[data-type="freewalker"]').addClass('on');
+                      window.showBarFlag = false;
+                      $('.dropdown-bar').show();
+                  }
+                  else if(window.Env.salesType) {
+                      switch(firstSalesType|0) {
+                          case 1:
+                          case 3:
+                              $nav.children('[data-type="sales"]').addClass('on');
+                              break;
+                          case 2:
+                              $nav.children('[data-type="localdeals"]').addClass('on');
+                              break;
+                          case 30:
+                          case 6:
+                              $nav.children('[data-type="freewalker"]').addClass('on');
+                              break;
+                          default:
+                              $nav.children('[data-type="localdeals"]').addClass('on');
+                              break;
+                      }
+                      window.showBarFlag = false;
+                      $('.dropdown-bar').show();
+                  }
+                  else {
+                      if( pathArr){
+                          if(pathArr.length == 1 && pathArr[0] != 'activity'){
+                              switch(pathArr[0]){
+                                  case 'localdeals':
+                                      $nav.children('[data-type="localdeals"]').addClass('on');
+                                      break;
+                                  case 'insurance':
+                                      $nav.children('[data-type="insurance"]').addClass('on');
+                                      break;
+                                  case 'sales':
+                                      $nav.children('[data-type="sales"]').addClass('on');
+                                      break;
+                                  case 'flight':
+                                      $nav.children('[data-type="flight"]').addClass('on');
+                                      break;
+                                  default:
+                                      break;
+                              }
+                              window.showBarFlag = false;
+                              $('.dropdown-bar').show();
+                          }else {
+                              if('activity'.indexOf(pathArr) != -1){
+                                  window.showBarFlag  = true;
+                                  $('.dropdown-bar').hide();
+                              }
+                          }
+                  }
+              }
+                  // 点击时触发
+                  $('.ul-dropdown-bar > li').on('click',function () {
+                      $(this).addClass('on').siblings().removeClass('on');
+                  });
+        })();
+
+      </script>
+      <script type="text/javascript">
+          M.closure(function(require){
+              var ClickToggle = require('ClickToggle');
+              var h5Url = $('#_js_activity_h5_url');
+              if($('#_j_activity_slide ._js_h5_url').length) {
+                  new ClickToggle({
+                      'container': '#_j_activity_slide',
+                      'innerSelector': '._js_h5_url',
+                      'handler': function(target) {
+                          h5Url.children('img').attr('src', target.data('h5_img')).end().show();
+                      },
+                      'outHandler': function() {
+                          h5Url.hide();
+                      }
+                  });
+              }
+
+              h5Url.on('click', 'i', function() {
+                  h5Url.hide();
+              });
+        });
+      </script>
+      <script type="text/javascript">
+          var $topPicContainer = $('#_j_top_pic_container'),
+              topPicSlideCnt = $topPicContainer.find('.show-image');
+
+          function respondTopPicSize(ev) {
+              var clientWidth = $(window).width(),
+                  picHeight = Math.round(clientWidth / 3);
+              $topPicContainer.height(picHeight);
+              topPicSlideCnt.find('img').each(function(idx, ele) {
+                  var $img = $(ele),
+                      imgHeight = parseInt($img.css('height'), 10);
+                  if(imgHeight > picHeight) {
+                      $img.css('marginTop', -Math.round((imgHeight - picHeight) / 2));
+                  }
+              });
+          }
+          $(window).on('resize', respondTopPicSize).trigger('resize');
+      </script>
+      <style>
+          #banner-con-gloable{
+              display: block;
+              position: fixed;
+              bottom: 0;
+              left: -100%;
+              z-index: 110;
+              width:100%;
+              height: 179px;
+              overflow-x: hidden;
+          }
+          #banner-con-gloable .banner-btn-con{
+              width: 100%;
+              height:162px;
+              background:rgba(30,15,8,0.95);
+              position: absolute;
+              bottom: 0;
+          }
+          #banner-con-gloable .banner-btn-con .close-btn{
+              position: absolute;
+              right: 35px;
+              top:24px;
+              z-index: 120;
+              height: 24px;
+              width: 24px;
+              cursor:pointer;
+          }
+          #banner-con-gloable .banner-image-con{
+              position: absolute;
+              right: 50%;
+              bottom: 0;
+              width: 1000px;
+              margin-right: -500px;
+          }
+          #float-pannel-gloable{
+              padding-left: 28px;
+              padding-bottom: 20px;
+              display: block;
+              position: fixed;
+              bottom: 0;
+              z-index: 110;
+              left: -230px;
+          }
+          #float-pannel-gloable .float-btn{
+              width: 24pxpx;
+              height: 24px;
+              position: absolute;
+              right: 0;
+              top: 0;
+              z-index: 100;
+          }
+          #closed{
+              height:24px;
+              width:24px;
+              vertical-algin:top;
+              border:none;
+              cursor:pointer;
+          }
+      </style>
+      <script src="https://hm.baidu.com/hm.js?8288b2ed37e5bc9b4c9f7008798d2de0"></script><script type="text/javascript">
+        window.Env = {"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","W_HTTP":"http:\/\/w.mafengwo.cn","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","TONGJI_HOST":"tongji.mafengwo.cn","UID":0,"CSTK":"33c7b387017ac15691a0ac3fb6e40888_5d69dae3ad3c5d4d6b4aca16a3b89d9c","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ"};
+      </script>
+      <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1573763829.js" type="text/javascript" crossorigin="anonymous"></script>
+      <script async="" src="http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+jquery.lazyload:js+M+module+Pagination:js+index+ControllerRecommend:js+M+module+ClickToggle:js+M+module+Slider:js+CitySelectPop:js+xdate:js+hotel+module+FestivalDateConfig:js+jquery-ui-core:js+jquery-ui-datepicker:js+hotel+module+DateRangePicker:js+hotel+module+Datepicker:js+M+module+Storage:js+hotel+module+ModuleProvider:js+hotel+module+BookingDate:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+hotel+module+Log:js+hotel+module+Search_v2:js+AIndex:js+module+app+Page:js+M+module+Toggle:js+index+AGinfoSearch:js+M+module+PageAdmin:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^YlVUQw^1564052076.js" crossorigin="anonymous"></script><script async="" src="http://js.mafengwo.net/js/BrowserState.js?1542357400" crossorigin="anonymous"></script>
+      <script type="text/javascript" async="" charset="utf-8" src="http://c.cnzz.com/core.php?web_id=30065558&amp;t=q"></script><script type="text/javascript" async="" charset="utf-8" src="http://w.cnzz.com/c.php?id=30065558&amp;async=1"></script>
+
+    <!--首页结束-->
+
+
+<script type="text/javascript" async="" charset="utf-8" src="http://c.cnzz.com/core.php?web_id=30065558&amp;t=q"></script><script type="text/javascript" async="" charset="utf-8" src="http://w.cnzz.com/c.php?id=30065558&amp;async=1"></script><script src="https://hm.baidu.com/hm.js?8288b2ed37e5bc9b4c9f7008798d2de0"></script><script type="text/javascript">
+window.Env = {"sales_title_tag":"localdeals","WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","W_HTTP":"http:\/\/w.mafengwo.cn","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","TONGJI_HOST":"tongji.mafengwo.cn","UID":0,"CSTK":"bae93b4ac2714b71da49c1b52cbdf8e5_8bc8eadd8db2428455d141f7cf8a4ff0","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ"};
+</script>
+<script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1573763829.js" type="text/javascript" crossorigin="anonymous"></script>
+<script type="text/javascript">
+var __mfw_uid = parseInt('0');
+</script>
+<script language="javascript" src="http://js.mafengwo.net/js/cv/js+common+jquery.plugins:js+common+widgets:js+mfw.storage^ZlI^1537192880.js" type="text/javascript" crossorigin="anonymous"></script>
+<link href="http://css.mafengwo.net/css/cv/css+localdeals+localdeals.v2:css+sales+m-toolbar:css+sales+brand-bar:css+jquery-ui-1.8.18.custom:css+mfweditor+mfweditor^YldT^1544154318.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery.lazyload:js+jquery.mfwSlide:js+jquery-ui-1.8.18.custom.min:js+connect_share:js+yiwofeng+common:js+sales+page_event_statistics^YlZW^1544154317.js" type="text/javascript" crossorigin="anonymous"></script>
+<script async="" src="http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+M+module+PageAdmin:js+M+module+Storage:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^ZVdT^1564052076.js" crossorigin="anonymous"></script>
+<script async="" src="http://js.mafengwo.net/js/cv/js+BrowserState:js+jquery.path:js+M+module+Cookie:js+ad_widget+adwidget:js+ad_widget+footer^alQ^1542357400.js" crossorigin="anonymous"></script>
+<script>
+    //判断是否显示 下拉bar
+  ;(function () {
+      window.showBarFlag = true;
+      var realPathName = location.pathname,$nav = $('#Js_middleNav');
+      var regExp = /localdeals|sales|insurance|activity/gi;
+      var pathArr = realPathName.match(regExp);
+
+      var firstSalesType = 0;
+      if ([1, 3, 34, 50, 51, 52].indexOf(window.Env.salesType) > -1) {
+          firstSalesType = 3
+      } else if ([4, 40, 41, 42, 43, 44].indexOf(window.Env.salesType) > -1) {
+          firstSalesType = 4
+      //  } else if ([11, 90, 91, 92, 93, 94, 95, 96].indexOf(window.Env.salesType) > -1) {
+      //    firstSalesType = 11
+      } else if ([6, 30, 32, 33, 35, 36].indexOf(window.Env.salesType) > -1) {
+          firstSalesType = 6
+      } else if ([5].indexOf(window.Env.salesType) > -1) {
+          firstSalesType = 5
+      } else if ([21, 22, 70].indexOf(window.Env.salesType) > -1) {
+          firstSalesType = 21
+      } else if ([28, 29, 31, 99].indexOf(window.Env.salesType) > -1) {
+          firstSalesType = 1
+      } else {
+          firstSalesType = 2
+      }
+      // } else if ([2, 9, 12, 13, 15, 17, 20, 21, 22, 23, 24, 25, 26, 46, 47, 48, 49, 60, 61, 62, 64, 65, 66, 67, 68, 70, 71, 72, 74, 75, 76, 77, 78, 79])
+          var urlSalesType = realPathName.split('-')[3];
+          if(window.Env.middleNavHide) { $('.dropdown-bar').hide();return;}
+          if(urlSalesType == 5 || firstSalesType ==5){
+              $nav.children('[data-type="cruise"]').addClass('on');
+              window.showBarFlag = false;
+              $('.dropdown-bar').show();
+          }else if(urlSalesType == 21 || firstSalesType ==21){
+              $nav.children('[data-type="wifi"]').addClass('on');
+              window.showBarFlag = false;
+              $('.dropdown-bar').show();
+          }else if(urlSalesType == 4 || window.Env.sales_title_tag == 'visa' || firstSalesType == 4){
+              $nav.children('[data-type="visa"]').addClass('on');
+              window.showBarFlag = false;
+              $('.dropdown-bar').show();
+          }else if(window.Env.sales_title_tag == 'semi_self_service' || realPathName == '/sales/0-0-0-6-0-0-0-0.html?group=4' || firstSalesType == 6){
+              $nav.children('[data-type="freewalker"]').addClass('on');
+              window.showBarFlag = false;
+              $('.dropdown-bar').show();
+          }
+          else if(window.Env.salesType) {
+              switch(firstSalesType|0) {
+                  case 1:
+                  case 3:
+                      $nav.children('[data-type="sales"]').addClass('on');
+                      break;
+                  case 2:
+                      $nav.children('[data-type="localdeals"]').addClass('on');
+                      break;
+                  case 30:
+                  case 6:
+                      $nav.children('[data-type="freewalker"]').addClass('on');
+                      break;
+                  default:
+                      $nav.children('[data-type="localdeals"]').addClass('on');
+                      break;
+              }
+              window.showBarFlag = false;
+              $('.dropdown-bar').show();
+          }
+          else {
+              if( pathArr){
+                  if(pathArr.length == 1 && pathArr[0] != 'activity'){
+                      switch(pathArr[0]){
+                          case 'localdeals':
+                              $nav.children('[data-type="localdeals"]').addClass('on');
+                              break;
+                          case 'insurance':
+                              $nav.children('[data-type="insurance"]').addClass('on');
+                              break;
+                          case 'sales':
+                              $nav.children('[data-type="sales"]').addClass('on');
+                              break;
+                          case 'flight':
+                              $nav.children('[data-type="flight"]').addClass('on');
+                              break;
+                          default:
+                              break;
+                      }
+                      window.showBarFlag = false;
+                      $('.dropdown-bar').show();
+                  }else {
+                      if('activity'.indexOf(pathArr) != -1){
+                          window.showBarFlag  = true;
+                          $('.dropdown-bar').hide();
+                      }
+                  }
+          }
+      }
+        // 点击时触发
+        $('.ul-dropdown-bar > li').on('click',function () {
+            $(this).addClass('on').siblings().removeClass('on');
+        });
+  })();
+</script>
+<script>
+    $(function () {
+
+        var flag_page = location.href.match(/^(https|http):\/\/www\.mafengwo\.cn\/?$/g) ||
+            location.href.match(/^(https|http):\/\/www\.mafengwo\.cn(\/\?\S*)/g) ||
+            location.href.match(/(cn\/gonglve|cn\/yj\/|cn\/i\/|cn\/jd\/|cn\/xc\/|cn\/schedule\/|cn\/baike\/|cn\/poi\/|mdd|travel-scenic-spot)/g)
+
+        // if(!!flag_page && getCookie('ad_hide')!='1' && getCookie('ad_close_num')<2){
+        //     handleBannerShow();
+        // }
+    });
+
+    // 浮标关闭按钮点击
+    $("#float-pannel-gloable .float-btn").click(function () {
+        $("#float-pannel-gloable").animate({ left:-230,},800,'swing');
+        add_cookie('ad_hide','1',1);
+        if(!getCookie('ad_close_num')){
+            add_cookie('ad_close_num',1,9999)
+        }else if(!!getCookie('ad_close_num')){
+            add_cookie('ad_close_num',getCookie('ad_close_num')*1+1,9999)
+        }
+    });
+
+    function add_cookie(name,value,n) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 24*60*1000*60*n);
+        document.cookie=name+'='+value+';expires='+exp.toGMTString()+';path=/';
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+
+        return "";
+    }
+
+    function delCookie(name)
+    {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval=getCookie(name);
+        if(cval!=null)
+            document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+    }
+
+    function handleBannerShow() {
+        $("#float-pannel-gloable").animate({ left:0,},500,'swing');
+    }
+
+</script>
+
+<script language="javascript" type="text/javascript">
+  if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+  M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+AHeader:js+jquery.lazyload:js+M+module+Pagination:js+index+ControllerRecommend:js+M+module+ClickToggle:js+M+module+Slider:js+CitySelectPop:js+xdate:js+hotel+module+FestivalDateConfig:js+jquery-ui-core:js+jquery-ui-datepicker:js+hotel+module+DateRangePicker:js+hotel+module+Datepicker:js+M+module+Storage:js+hotel+module+ModuleProvider:js+hotel+module+BookingDate:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+hotel+module+Log:js+hotel+module+Search_v2:js+AIndex:js+module+app+Page:js+M+module+Toggle:js+index+AGinfoSearch:js+M+module+PageAdmin:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+M+module+ScrollObserver:js+M+module+QRCode:js+AToolbar:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^YlVUQw^1564052076.js");
+  }
+</script>
+
+<script type="text/javascript">
+  M.closure(function(require){
+    var ClickToggle = require('ClickToggle');
+    var h5Url = $('#_js_activity_h5_url');
+    if($('#_j_activity_slide ._js_h5_url').length) {
+        new ClickToggle({
+            'container': '#_j_activity_slide',
+            'innerSelector': '._js_h5_url',
+            'handler': function(target) {
+                h5Url.children('img').attr('src', target.data('h5_img')).end().show();
+            },
+            'outHandler': function() {
+                h5Url.hide();
+            }
+        });
+    }
+
+    h5Url.on('click', 'i', function() {
+        h5Url.hide();
+    });
+  });
+</script>
+
+<script type="text/javascript">
+
+    var $topPicContainer = $('#_j_top_pic_container'),
+        topPicSlideCnt = $topPicContainer.find('.show-image');
+
+    function respondTopPicSize(ev) {
+        var clientWidth = $(window).width(),
+            picHeight = Math.round(clientWidth / 3);
+        $topPicContainer.height(picHeight);
+        topPicSlideCnt.find('img').each(function(idx, ele) {
+            var $img = $(ele),
+                imgHeight = parseInt($img.css('height'), 10);
+            if(imgHeight > picHeight) {
+                $img.css('marginTop', -Math.round((imgHeight - picHeight) / 2));
+            }
+        });
+    }
+    $(window).on('resize', respondTopPicSize).trigger('resize');
+</script>
+
+<style>
+    #banner-con-gloable{
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: -100%;
+        z-index: 110;
+        width:100%;
+        height: 179px;
+        overflow-x: hidden;
+    }
+    #banner-con-gloable .banner-btn-con{
+        width: 100%;
+        height:162px;
+        background:rgba(30,15,8,0.95);
+        position: absolute;
+        bottom: 0;
+    }
+    #banner-con-gloable .banner-btn-con .close-btn{
+        position: absolute;
+        right: 35px;
+        top:24px;
+        z-index: 120;
+        height: 24px;
+        width: 24px;
+        cursor:pointer;
+    }
+    #banner-con-gloable .banner-image-con{
+        position: absolute;
+        right: 50%;
+        bottom: 0;
+        width: 1000px;
+        margin-right: -500px;
+    }
+    #float-pannel-gloable{
+        padding-left: 28px;
+        padding-bottom: 20px;
+        display: block;
+        position: fixed;
+        bottom: 0;
+        z-index: 110;
+        left: -230px;
+    }
+    #float-pannel-gloable .float-btn{
+        width: 24pxpx;
+        height: 24px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 100;
+    }
+    #closed{
+        height:24px;
+        width:24px;
+        vertical-algin:top;
+        border:none;
+        cursor:pointer;
+    }
+</style>
+
+<style>
+                    /* 微信弹层 */
+                    .wx-mfw-pop{ width:420px; height:285px; padding-top:45px; text-align:center; font-size:16px; color:#666; line-height:1.8em;}
+                    .wx-mfw-pop img{ margin-top:10px;}
+                </style>
+  </body>
+</html>
